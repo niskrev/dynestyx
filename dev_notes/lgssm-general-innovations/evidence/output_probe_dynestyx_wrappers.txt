@@ -1,0 +1,10 @@
+== pass 1: numpyro validation ON (default)
+full-rank Q, R > 0                       ref=-34.05989292 cd_dynamax=-34.05989287 cuthbert=-34.05989292
+singular Q (1 shock, 2 states), R > 0    CONSTRUCTION ERROR ValueError: MultivariateNormal distribution got invalid covariance_matrix paramete
+full-rank Q, R = 0                       CONSTRUCTION ERROR ValueError: MultivariateNormal distribution got invalid covariance_matrix paramete
+== pass 2: numpyro validation OFF
+full-rank Q, R > 0                       ref=-34.05989292 cd_dynamax=-34.05989287 cuthbert=-34.05989292
+singular Q (1 shock, 2 states), R > 0    ref=-26.58376424 cd_dynamax=-26.58376424 cuthbert=nan
+full-rank Q, R = 0                       ref=-77.66876532 cd_dynamax=-77.66876396 cuthbert=nan
+== cd_dynamax smoother, singular Q and singular P0 (validation off)
+max |cd_dynamax smoothed mean - pinv RTS reference| = 2.865e-09

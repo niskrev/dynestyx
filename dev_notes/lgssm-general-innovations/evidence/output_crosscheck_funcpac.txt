@@ -1,0 +1,4 @@
+funcpac kalman_filter log-likelihood                  -26.81025400
+NumPy ref, predict_first=True  (funcpac convention)   -26.81025400
+NumPy ref, dynestyx convention with mapped (m0, P0)   -26.81025400
+NumPy ref, dynestyx convention, x0/Cov_state0 as is   -26.58376424

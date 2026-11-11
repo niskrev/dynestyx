@@ -1,0 +1,14 @@
+python 3.12.3 Linux-6.18.58.1-microsoft-standard-WSL2-x86_64-with-glibc2.39
+jax 0.12.0.1
+jaxlib 0.12.0.1
+numpyro 0.22.0
+cuthbert 0.1.1
+cuthbertlib 0.1.1
+cd-dynamax 0.5.0
+dynestyx 0.8.1
+numpy 2.5.4
+scipy 1.18.1
+jax.scipy.linalg.solve_discrete_lyapunov present: False
+dynestyx commit: 99756490 (branch feature/lgssm-general-innovations)
+funcpac commit: 33e8076
+pymfss commit: 12fb9cc

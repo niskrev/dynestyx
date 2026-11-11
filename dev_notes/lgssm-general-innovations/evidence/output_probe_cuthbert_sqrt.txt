@@ -1,0 +1,35 @@
+== filter log-likelihood, first-step convention = 'noop'
+full-rank Q, R > 0 (sanity)    ref=-34.05989292 seq=-34.05989292 assoc=-34.05989292  (assoc states ok)
+singular Q, R > 0              ref=-26.58376424 seq=-26.58376424 assoc=nan  (assoc states ok)
+full-rank Q, R = 0             ref=-77.66876532 seq=nan assoc=nan  (assoc states BAD)
+singular Q and R = 0           ref=-26.55992721 seq=nan assoc=nan  (assoc states BAD)
+== filter log-likelihood, first-step convention = 'predict'
+full-rank Q, R > 0 (sanity)    ref=-33.90754011 seq=-33.90754011 assoc=-33.90754011  (assoc states ok)
+singular Q, R > 0              ref=-26.81025400 seq=-26.81025400 assoc=nan  (assoc states ok)
+full-rank Q, R = 0             ref=-77.48770361 seq=nan assoc=nan  (assoc states ok)
+singular Q and R = 0           ref=-26.80222491 seq=nan assoc=nan  (assoc states ok)
+== rectangular (n x g) factor, singular Q, R > 0, noop first step
+filter sequential  loglik=-26.58376424 (ref -26.58376424)
+filter associative ERROR TypeError: Cannot concatenate arrays with shapes that differ in dimensions other than the one being c
+== gradient of log-likelihood w.r.t. (a11, shock variance), padded factor, noop first step
+sequential  autodiff=[-4.99291433 -2.61900412] central-diff=[-4.99291434 -2.61900413] max abs diff=7.14e-09
+associative autodiff=[nan nan] central-diff=[nan nan] max abs diff=nan
+== smoother (sequential, as in dynestyx's wrapper), singular Q; state 0 is cuthbert's initial state
+P0 = I (predicted cov PD)                max |smoothed mean - pinv RTS ref| = 4.441e-16
+P0 singular (predicted cov singular)     max |smoothed mean - pinv RTS ref| = nan
+== funcpac -> dynestyx initial-condition mapping (compare with crosscheck_funcpac.py)
+noop first step, MAPPED init (m0=A x0, P0=A C A' + Q)   loglik = -26.81025400
+predict first step, RAW init (x0, Cov_state0)          loglik = -26.81025400
+noop first step, RAW init (wrong convention)           loglik = -26.58376424
+== workaround: lax.scan over kf.predict / kf.update (sequential)
+predict_first=False full-rank Q, R > 0 (sanity)    ref=-34.05989292 scan=-34.05989292 |diff|=0.0e+00
+predict_first=False singular Q, R > 0              ref=-26.58376424 scan=-26.58376424 |diff|=7.1e-15
+predict_first=False full-rank Q, R = 0             ref=-77.66876532 scan=-77.66876532 |diff|=1.4e-14
+predict_first=False singular Q and R = 0           ref=-26.55992721 scan=-26.55992721 |diff|=0.0e+00
+predict_first=True  full-rank Q, R > 0 (sanity)    ref=-33.90754011 scan=-33.90754011 |diff|=1.4e-14
+predict_first=True  singular Q, R > 0              ref=-26.81025400 scan=-26.81025400 |diff|=3.6e-15
+predict_first=True  full-rank Q, R = 0             ref=-77.48770361 scan=-77.48770361 |diff|=0.0e+00
+predict_first=True  singular Q and R = 0           ref=-26.80222491 scan=-26.80222491 |diff|=0.0e+00
+== workaround: gradient through the scan (a11, shock variance), R = 0 and singular Q
+singular Q, R > 0: autodiff=[-4.99291433 -2.61900412] central-diff=[-4.99291434 -2.61900412] max abs diff=1.81e-09
+singular Q, R = 0: autodiff=[-6.37455306 -1.32679469] central-diff=[-6.37455305 -1.32679469] max abs diff=1.82e-09
